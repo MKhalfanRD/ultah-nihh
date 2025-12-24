@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Untuk Kamu</title>
+
+    <link rel="stylesheet" href="css/style.css" />
+
+    <!-- GSAP -->
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+  </head>
+  <body>
+    <!-- INTRO -->
+    <section id="intro" class="screen hidden">
+      <div class="intro-text" id="introText"></div>
+    </section>
+
+    <!-- MAIN -->
+    <section id="main" class="screen hidden">
+      <h1>Selamat Ulang Tahun 🤍</h1>
+      <p class="subtitle">Hari ini, aku mau kamu ngerasain sesuatu.</p>
+
+      <div class="feel-box">
+        <button onclick="feel('senang')">😄 Senang</button>
+        <button onclick="feel('capek')">😌 Capek</button>
+        <button onclick="feel('terharu')">🥹 Terharu</button>
+      </div>
+
+      <div id="message" class="message"></div>
+    </section>
+
+    <audio id="bgMusic" src="assets/audio/birthday.mp3" loop></audio>
+
+    <script src="js/trigger.js"></script>
+    <script src="js/intro.js"></script>
+    <script src="js/feel.js"></script>
+  </body>
+</html>

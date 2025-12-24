@@ -1,0 +1,67 @@
+:root {
+  --bg-main: #3b2f2f;
+  --bg-soft: #5c4033;
+  --accent: #d2b48c;
+  --text-main: #f5f5f4;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Segoe UI", sans-serif;
+}
+
+body {
+  background: var(--bg-main);
+  color: var(--text-main);
+  height: 100vh;
+  overflow: hidden;
+}
+
+.screen {
+  height: 100vh;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.hidden {
+  display: none;
+}
+
+.intro-text {
+  font-size: 1.3rem;
+  line-height: 1.8;
+}
+
+h1 {
+  font-size: 1.8rem;
+  margin-bottom: 12px;
+}
+
+.subtitle {
+  opacity: 0.85;
+  margin-bottom: 32px;
+}
+
+.feel-box button {
+  margin: 8px;
+  padding: 12px 18px;
+  font-size: 1rem;
+  border-radius: 999px;
+  border: none;
+  background: var(--accent);
+  color: #3b2f2f;
+  cursor: pointer;
+}
+
+.message {
+  margin-top: 28px;
+  font-size: 1.1rem;
+  max-width: 420px;
+  line-height: 1.6;
+}
