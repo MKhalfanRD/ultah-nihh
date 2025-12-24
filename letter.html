@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="css/style.css">
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+  <style>
+    body { background: #2d241e; }
+    .letter-paper { 
+      background: #fdfaf6; 
+      color: #333; 
+      padding: 60px 40px; 
+      width: 85%; max-width: 500px;
+      border-radius: 5px;
+      box-shadow: 20px 20px 0px rgba(0,0,0,0.2);
+      font-family: 'Courier New', serif;
+      position: relative;
+    }
+    p { margin-bottom: 20px; line-height: 1.8; opacity: 0; }
+  </style>
+</head>
+<body class="screen">
+
+<div class="letter-paper">
+  <p><strong>Untukmu,</strong></p>
+  <p>9 tahun adalah perjalanan yang panjang, tapi bersamamu, waktu terasa begitu cepat.</p>
+  <p>Terima kasih sudah bersabar, sudah bertahan, dan sudah mencintai dengan caramu yang paling indah.</p>
+  <p>Selamat Ulang Tahun. Aku sayang kamu.</p>
+  
+  <div style="margin-top: 40px;">
+    <a href="index.html" style="color: #8c7851; text-decoration: none; font-weight: bold;">← Pulang ke Menu Utama</a>
+  </div>
+</div>
+
+<script>
+  gsap.from(".letter-paper", { scale: 0.8, opacity: 0, duration: 1 });
+  gsap.to("p", { opacity: 1, x: 0, stagger: 1.5, duration: 1, delay: 0.5 });
+</script>
+</body>
+</html>

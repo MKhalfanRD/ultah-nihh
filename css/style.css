@@ -1,67 +1,247 @@
 :root {
-  --bg-main: #3b2f2f;
-  --bg-soft: #5c4033;
+  --bg-main: #1a1616;
   --accent: #d2b48c;
-  --text-main: #f5f5f4;
-}
-
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  font-family: "Segoe UI", sans-serif;
+  --text: #f5f5f4;
+  --card-bg: rgba(255, 255, 255, 0.05);
 }
 
 body {
-  background: var(--bg-main);
-  color: var(--text-main);
-  height: 100vh;
-  overflow: hidden;
+  margin: 0;
+  background-color: var(--bg-main);
+  color: var(--text);
+  font-family: "Georgia", serif;
+  transition: background 1s ease, color 0.5s ease;
 }
 
+/* --- Utilities --- */
 .screen {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
   height: 100vh;
-  padding: 24px;
   display: flex;
-  flex-direction: column;
   justify-content: center;
   align-items: center;
-  text-align: center;
+  z-index: 10;
 }
 
 .hidden {
-  display: none;
+  display: none !important;
+  pointer-events: none;
 }
 
-.intro-text {
-  font-size: 1.3rem;
-  line-height: 1.8;
+/* --- UI Gate Modern --- */
+#gate {
+  background: radial-gradient(circle, #2d241e 0%, #1a1616 100%); /* Latar belakang gradasi dalam */
+  z-index: 100;
 }
 
-h1 {
+.glass-card {
+  background: rgba(255, 255, 255, 0.03); /* Transparansi sangat tipis */
+  backdrop-filter: blur(15px); /* Efek blur kaca */
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 25px;
+  padding: 50px 30px;
+  text-align: center;
+  box-shadow: 0 25px 50px rgba(0,0,0,0.5);
+  max-width: 450px;
+  width: 90%;
+}
+
+#gate h2 {
+  font-family: 'Playfair Display', serif; /* Font puitis (opsional) */
+  color: var(--accent);
   font-size: 1.8rem;
-  margin-bottom: 12px;
+  margin-bottom: 10px;
 }
 
-.subtitle {
-  opacity: 0.85;
-  margin-bottom: 32px;
-}
-
-.feel-box button {
-  margin: 8px;
-  padding: 12px 18px;
+#gate p {
   font-size: 1rem;
-  border-radius: 999px;
-  border: none;
-  background: var(--accent);
-  color: #3b2f2f;
-  cursor: pointer;
+  color: #ccc;
+  margin-bottom: 30px;
 }
 
-.message {
-  margin-top: 28px;
-  font-size: 1.1rem;
-  max-width: 420px;
-  line-height: 1.6;
+/* Input Minimalis */
+#answer {
+  width: 100%;
+  padding: 15px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 12px;
+  color: white;
+  text-align: center;
+  font-size: 1rem;
+  margin-bottom: 20px;
+  transition: 0.3s;
+}
+
+#answer:focus {
+  outline: none;
+  border-color: var(--accent);
+  background: rgba(255, 255, 255, 0.1);
+}
+
+/* Tombol Premium */
+#gate button {
+  width: 100%;
+  padding: 15px;
+  border-radius: 12px;
+  background: var(--accent);
+  color: #1a1616;
+  font-weight: bold;
+  font-size: 1rem;
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+#gate button:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 20px rgba(210, 180, 140, 0.3);
+  filter: brightness(1.1);
+}
+
+#gateMsg {
+  margin-top: 15px;
+  font-size: 0.85rem;
+  color: #ff9b9b; /* Warna soft red untuk error */
+}
+
+/* Perbaikan Tombol agar tidak tabrakan dengan warna BG */
+.feel-box button {
+  padding: 12px 20px;
+  margin: 5px;
+  border-radius: 12px;
+  border: 2px solid var(--accent);
+  background: rgba(
+    0,
+    0,
+    0,
+    0.3
+  ); /* Gelap transparan agar teks putih tetap kontras */
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.feel-box button:hover {
+  background: var(--accent);
+  color: #1a1616;
+}
+
+/* --- Timeline UI --- */
+.timeline-container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 50px 20px;
+}
+
+.moment {
+  background: var(--card-bg);
+  border-radius: 15px;
+  padding: 20px;
+  margin-bottom: 40px;
+  text-align: center;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.moment img {
+  width: 100%;
+  max-width: 400px;
+  border-radius: 10px;
+  filter: grayscale(30%);
+  transition: 0.5s;
+}
+
+.moment img:hover {
+  filter: grayscale(0%);
+  transform: scale(1.02);
+}
+
+.moment p {
+  font-style: italic;
+  margin-top: 15px;
+  color: var(--accent);
+}
+
+/* --- Navigation --- */
+.nav-bottom {
+  position: fixed;
+  bottom: 30px;
+  display: flex;
+  gap: 20px;
+}
+
+.btn-back {
+  text-decoration: none;
+  color: var(--text);
+  font-size: 0.9rem;
+  padding: 10px 20px;
+  border: 1px solid var(--text);
+  border-radius: 50px;
+  background: rgba(0, 0, 0, 0.2);
+}
+
+/* --- Perbaikan Link Navigasi (Mencegah Warna Biru) --- */
+.links {
+  margin-top: 30px;
+  display: flex;
+  gap: 15px;
+  justify-content: center;
+}
+
+.nav-link {
+  color: var(--text); /* Mengikuti warna teks mood */
+  text-decoration: none;
+  font-size: 0.9rem;
+  padding: 10px 20px;
+  border-radius: 50px;
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(5px);
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.nav-link:hover {
+  background: var(--accent);
+  color: #1a1616 !important; /* Teks jadi gelap saat hover agar kontras */
+  transform: translateY(-3px);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+/* --- UI Galeri Kenangan (Timeline) --- */
+.timeline-page {
+  background: #1a1616;
+  min-height: 100vh;
+  padding: 40px 20px;
+  overflow-y: auto;
+}
+
+.moment-card {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 20px;
+  padding: 20px;
+  margin: 0 auto 40px auto;
+  max-width: 500px;
+  text-align: center;
+}
+
+.moment-card img {
+  width: 100%;
+  border-radius: 15px;
+  margin-bottom: 15px;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
+}
+
+.moment-card p {
+  font-style: italic;
+  font-size: 1rem;
+  color: var(--accent);
+  line-height: 1.5;
 }

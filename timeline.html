@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="css/style.css">
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+</head>
+<body class="timeline-page">
+
+  <h1 style="text-align: center; color: var(--accent); margin-bottom: 40px;">Potongan Cerita Kita</h1>
+
+  <div class="moment-card">
+    <img src="assets/img/1.jpg" alt="Memory 1">
+    <p>"Hari di mana kita pertama kali sadar kalau kita cocok banget."</p>
+  </div>
+
+  <div class="moment-card">
+    <img src="assets/img/2.jpg" alt="Memory 2">
+    <p>"Tawa kamu di foto ini selalu jadi favorit aku."</p>
+  </div>
+
+  <div style="text-align: center; margin-top: 50px; padding-bottom: 50px;">
+    <a href="index.html" class="nav-link" style="display: inline-flex;">← Pulang ke Halaman Utama</a>
+  </div>
+
+  <script>
+    gsap.from(".moment-card", {
+      opacity: 0,
+      y: 30,
+      duration: 1,
+      stagger: 0.3,
+      ease: "power2.out"
+    });
+  </script>
+</body>
+</html>

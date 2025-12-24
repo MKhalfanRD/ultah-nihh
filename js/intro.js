@@ -1,23 +1,24 @@
-const introLines = [
-  "Hari ini...",
-  "ada satu orang yang ulang tahun.",
-  "",
-  "Dan aku bersyukur,",
-  "karena orang itu adalah kamu."
-];
-
-let index = 0;
-
-function startIntro() {
+async function startIntroFlow() {
+  const intro = document.getElementById("intro");
   const el = document.getElementById("introText");
-  el.innerHTML = "";
+  intro.classList.remove("hidden");
+  gsap.to(intro, { opacity: 1, duration: 1 });
 
-  const interval = setInterval(() => {
-    el.innerHTML += introLines[index] + "<br/>";
-    index++;
-    if (index === introLines.length) {
-      clearInterval(interval);
-      setTimeout(showMain, 1800);
-    }
-  }, 900);
+  const lines = [
+    "Sembilan tahun lalu...",
+    "Sebuah pertemuan yang awalnya biasa saja,",
+    "Menjadi awal dari cerita paling indah dalam hidupku.",
+    "Aku bersyukur kamu ada.",
+    "Dan hari ini...",
+    "Dunia merayakan hadirmu."
+  ];
+
+  for (let line of lines) {
+    el.innerHTML = line;
+    await gsap.fromTo(el, { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 1.2 });
+    await new Promise(r => setTimeout(r, 2000));
+    await gsap.to(el, { opacity: 0, y: -20, duration: 0.8 });
+  }
+
+  showMain();
 }

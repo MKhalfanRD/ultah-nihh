@@ -13,11 +13,16 @@ window.addEventListener("DOMContentLoaded", () => {
   }
 
   if (isBirthday()) {
-    document.getElementById("bgMusic").play().catch(()=>{});
+    birthdayConfetti();
   }
 });
 
 function showMain() {
   document.getElementById("intro").classList.add("hidden");
   document.getElementById("main").classList.remove("hidden");
+}
+
+if (!localStorage.getItem("passedGate")) {
+  document.getElementById("gate").style.display = "flex";
+  return;
 }
