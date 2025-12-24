@@ -184,34 +184,66 @@ body {
   background: rgba(0, 0, 0, 0.2);
 }
 
-/* --- Perbaikan Link Navigasi (Mencegah Warna Biru) --- */
 .links {
-  margin-top: 30px;
+  margin-top: 40px;
   display: flex;
-  gap: 15px;
+  gap: 20px;
   justify-content: center;
+  flex-wrap: wrap;
 }
 
 .nav-link {
-  color: var(--text); /* Mengikuti warna teks mood */
+  /* Hilangkan warna biru default */
+  color: var(--text-main, #f5f5f4); 
   text-decoration: none;
-  font-size: 0.9rem;
-  padding: 10px 20px;
+  
+  /* Desain Tombol Minimalis */
+  padding: 12px 25px;
   border-radius: 50px;
-  background: rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.05);
   border: 1px solid rgba(255, 255, 255, 0.2);
-  backdrop-filter: blur(5px);
+  backdrop-filter: blur(10px);
+  
+  font-size: 0.9rem;
+  font-weight: 500;
   transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.nav-link:hover {
+  background: var(--accent, #d2b48c);
+  color: #1a1616 !important; /* Teks jadi gelap saat di-hover agar terbaca */
+  transform: translateY(-3px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+}
+
+/* --- Perbaikan Tombol Perasaan (Feel Box) --- */
+.feel-box {
+  display: flex;
+  gap: 15px;
+  justify-content: center;
+  margin: 30px 0;
+}
+
+.feel-box button {
+  background: rgba(0, 0, 0, 0.2);
+  color: white;
+  border: 1px solid var(--accent, #d2b48c);
+  padding: 12px 20px;
+  border-radius: 15px;
+  cursor: pointer;
+  transition: 0.3s;
+  font-size: 1rem;
   display: flex;
   align-items: center;
   gap: 8px;
 }
 
-.nav-link:hover {
-  background: var(--accent);
-  color: #1a1616 !important; /* Teks jadi gelap saat hover agar kontras */
-  transform: translateY(-3px);
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+.feel-box button:hover {
+  background: var(--accent, #d2b48c);
+  color: #1a1616;
 }
 
 /* --- UI Galeri Kenangan (Timeline) --- */
