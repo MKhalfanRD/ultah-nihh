@@ -9,23 +9,23 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: system-ui, sans-serif;
+  font-family: "Segoe UI", sans-serif;
 }
 
 body {
   background: var(--bg-main);
   color: var(--text-main);
-  min-height: 100vh;
+  height: 100vh;
   overflow: hidden;
 }
 
 .screen {
   height: 100vh;
+  padding: 24px;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  padding: 24px;
   text-align: center;
 }
 
@@ -33,36 +33,34 @@ body {
   display: none;
 }
 
+.intro-text {
+  font-size: 1.3rem;
+  line-height: 1.8;
+}
+
 h1 {
-  font-size: 2rem;
+  font-size: 1.8rem;
   margin-bottom: 12px;
 }
 
 .subtitle {
   opacity: 0.85;
-  margin-bottom: 24px;
+  margin-bottom: 32px;
 }
 
-.feel-buttons button {
-  background: var(--bg-soft);
-  color: var(--text-main);
-  border: none;
-  border-radius: 12px;
-  padding: 14px 20px;
+.feel-box button {
   margin: 8px;
+  padding: 12px 18px;
   font-size: 1rem;
-  cursor: pointer;
-  transition: transform .2s, background .2s;
-}
-
-.feel-buttons button:hover {
+  border-radius: 999px;
+  border: none;
   background: var(--accent);
-  color: #2e1f1f;
-  transform: scale(1.05);
+  color: #3b2f2f;
+  cursor: pointer;
 }
 
 .message {
-  margin-top: 30px;
+  margin-top: 28px;
   font-size: 1.1rem;
   max-width: 420px;
   line-height: 1.6;

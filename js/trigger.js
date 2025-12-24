@@ -3,7 +3,21 @@ function isBirthday() {
   return now.getDate() === 18 && now.getMonth() === 0;
 }
 
-if (isBirthday()) {
-  document.body.style.background =
-    "radial-gradient(circle at top, #5c4033, #3b2f2f)";
+window.addEventListener("DOMContentLoaded", () => {
+  if (!localStorage.getItem("opened")) {
+    document.getElementById("intro").classList.remove("hidden");
+    startIntro();
+    localStorage.setItem("opened", "true");
+  } else {
+    showMain();
+  }
+
+  if (isBirthday()) {
+    document.getElementById("bgMusic").play().catch(()=>{});
+  }
+});
+
+function showMain() {
+  document.getElementById("intro").classList.add("hidden");
+  document.getElementById("main").classList.remove("hidden");
 }
