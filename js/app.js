@@ -49,6 +49,6 @@ function activateBirthdayMode() {
   const bg = document.getElementById("bgMusic");
   bg.volume = 0;
   bg.play().catch(() => {});
-  gsap.to(bg, { volume: 0.4, duration: 5 }); // Fade in musik
+  gsap.to(bg, { volume: 0.4, duration: 0.7 }); // Fade in musik
   playVoice(); // Dari voice.js
 }
