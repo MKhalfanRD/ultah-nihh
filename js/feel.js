@@ -1,20 +1,21 @@
 function feel(type) {
-  const msg = document.getElementById("message");
+  const message = document.getElementById("message");
 
   if (type === "capek") {
-    msg.innerText =
-      "Kalau capek, kamu nggak harus kuat sendirian.\nAku di sini.";
+    message.innerText =
+      "Kalau capek, kamu nggak harus kuat sendirian. Aku di sini.";
+    gsap.from(message, { opacity: 0, y: 20, duration: 1 });
   }
 
   if (type === "senang") {
-    msg.innerText =
-      "Aku suka cara kamu bahagia.\nSerius, itu bikin aku ikut senyum.";
+    message.innerText =
+      "Aku suka cara kamu bahagia. Senyummu selalu bikin hangat.";
+    gsap.from(message, { scale: 0.9, opacity: 0, duration: 0.8 });
   }
 
   if (type === "terharu") {
-    msg.innerText =
-      "Terima kasih sudah jadi kamu.\nDan terima kasih sudah ada.";
+    message.innerText =
+      "Terima kasih sudah jadi kamu. Aku serius sama perasaan ini.";
+    gsap.from(message, { opacity: 0, duration: 1.2 });
   }
-
-  gsap.from(msg, { opacity: 0, y: 20, duration: 1 });
 }

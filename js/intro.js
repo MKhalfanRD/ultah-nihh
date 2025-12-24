@@ -1,23 +1,23 @@
-const introLines = [
-  "Hari ini...",
-  "ada satu orang yang ulang tahun.",
-  "",
-  "Dan aku bersyukur,",
-  "karena orang itu adalah kamu."
-];
+const intro = document.getElementById("intro");
+const main = document.getElementById("main");
 
-let index = 0;
-
-function startIntro() {
-  const el = document.getElementById("introText");
-  el.innerHTML = "";
-
-  const interval = setInterval(() => {
-    el.innerHTML += introLines[index] + "<br/>";
-    index++;
-    if (index === introLines.length) {
-      clearInterval(interval);
-      setTimeout(showMain, 1800);
+if (!localStorage.getItem("opened")) {
+  new Typed("#intro-text", {
+    strings: [
+      "Hari ini…<br>ada satu orang yang ulang tahun.<br><br>Dan aku bersyukur…<br>orang itu adalah kamu."
+    ],
+    typeSpeed: 45,
+    showCursor: false,
+    onComplete: () => {
+      setTimeout(() => {
+        intro.classList.add("hidden");
+        main.classList.remove("hidden");
+      }, 1200);
     }
-  }, 900);
+  });
+
+  localStorage.setItem("opened", "true");
+} else {
+  intro.classList.add("hidden");
+  main.classList.remove("hidden");
 }
