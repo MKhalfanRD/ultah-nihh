@@ -3,61 +3,95 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Untuk Kamu</title>
-    <link rel="stylesheet" href="css/style.css" />
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <title>9 Years Journey - Birthday Gift</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+
+    <link rel="stylesheet" href="css/style.css" />
   </head>
-  <body id="app-container">
-    <section id="gate" class="screen">
+  <body>
+    <div id="start-overlay" class="overlay-screen">
       <div class="glass-card">
-        <h2>Satu hal kecil...</h2>
-        <p>Setelah 9 tahun, akhirnya kita ketemu dimana?</p>
+        <h2 class="title-font">A Special Gift for You 🤍</h2>
+        <p class="sub-text">Nyalakan volume suara ya!</p>
+        <button id="main-btn" onclick="initiateExperience()">
+          Buka Kado 🎁
+        </button>
+      </div>
+    </div>
 
-        <input
-          type="text"
-          id="answer"
-          placeholder="Ketik jawabanmu di sini..."
-          autocomplete="off"
-        />
-        <button onclick="checkAnswer()">Buka Kenangan 🤍</button>
+    <section id="sec-gate">
+      <div class="glass-card" id="gate-card">
+        <div id="gate-text-container">
+          <h2 id="greet-1" class="anim-text">
+            Halo ayyyy, assalamualaikummmm! ✨
+          </h2>
+          <h2 id="greet-2" class="anim-text">
+            Eh ini beneran ayang aku bukan yaa? 🤔
+          </h2>
+          <h2 id="greet-3" class="anim-text">
+            Kalo iya, dia pasti bisa jawab ini...
+          </h2>
+        </div>
 
-        <p id="gateMsg"></p>
+        <div id="question-box" class="hidden">
+          <p>Dimana kita first meet in real life? 🧐</p>
+          <input
+            type="text"
+            id="answer"
+            placeholder="Ketik lokasinya..."
+            autocomplete="off"
+          />
+          <button onclick="checkAnswer()">VERIFY</button>
+        </div>
+        <p id="gateMsg" class="error"></p>
       </div>
     </section>
 
-    <section id="intro" class="screen hidden">
-      <div id="introText" class="intro-text"></div>
+    <section id="sec-story">
+      <div class="photo-frame">
+        <img id="story-img" src="" alt="Memory" />
+      </div>
+      <p id="story-caption" class="caption"></p>
+      <div class="audio-bar"><div class="progress"></div></div>
+      <p class="tiny-text">Mendengarkan cerita... 🎙️</p>
     </section>
 
-    <section id="main" class="screen hidden">
-      <div class="glass-card">
-        <h1 id="mainTitle">Selamat Ulang Tahun 🤍</h1>
-        <p class="subtitle">Bagaimana perasaanmu hari ini?</p>
+    <section id="sec-birthday">
+      <h1 class="title-font big">Happy Birthday! 🎂</h1>
+      <div id="playing-photos" class="photo-grid"></div>
+      <button id="btn-sing" onclick="startSinging()">
+        🎵 Dengar Nyanyianku
+      </button>
+    </section>
 
-        <div class="feel-box">
-          <button onclick="feel('senang')">😄 Senang</button>
-          <button onclick="feel('capek')">😌 Capek</button>
-          <button onclick="feel('terharu')">🥹 Terharu</button>
-        </div>
-
-        <div id="message" class="message"></div>
-
-        <div class="links">
-          <a href="letter.html" class="nav-link"><span>💌</span> Baca Surat</a>
-          <a href="timeline.html" class="nav-link"
-            ><span>🕰️</span> Kenangan Kita</a
-          >
-        </div>
+    <section id="sec-letter">
+      <div class="letter-box">
+        <h3 class="title-font">Untuk Kamu,</h3>
+        <p id="final-text"></p>
       </div>
     </section>
 
-    <audio id="bgMusic" src="assets/audio/birthday.mp3" loop></audio>
+    <audio id="v-halo" src="assets/audio/halo.mp3"></audio>
+    <audio id="v-memastikan" src="assets/audio/memastikan.mp3"></audio>
+    <audio id="v-pasti-tau" src="assets/audio/bisa-jawab.mp3"></audio>
+    <audio id="v-sukses" src="assets/audio/sukses.mp3"></audio>
+    <audio id="v-salah" src="assets/audio/gagal.mp3"></audio>
+
+    <audio
+      id="sfx-ceria"
+      src="https://assets.mixkit.co/active_storage/sfx/2571/2571-preview.mp3"
+    ></audio>
+    <audio
+      id="sfx-heartbeat"
+      src="https://www.soundjay.com/human/heartbeat-01.mp3"
+      loop
+    ></audio>
+    <audio id="audio-story" src="assets/audio/cerita-9tahun.mp3"></audio>
+    <audio id="audio-sing" src="assets/audio/nyanyi-ultah.mp3"></audio>
+    <audio id="audio-bg" src="assets/audio/lofi-bg.mp3" loop></audio>
 
     <script src="js/app.js"></script>
-    <script src="js/gate.js"></script>
-    <script src="js/intro.js"></script>
-    <script src="js/feel.js"></script>
-    <script src="js/confetti.js"></script>
   </body>
 </html>
