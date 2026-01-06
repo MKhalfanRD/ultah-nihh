@@ -59,12 +59,26 @@ function checkAnswer() {
     const msg = document.getElementById("gateMsg");
 
     if (ans.includes("marugame") || ans.includes("udon")) {
-        sfxDegdegan.pause();
-        vSukses.play();
-        gsap.to("#question-box", { opacity: 0, scale: 0.8, duration: 0.5 });
-        msg.style.color = "#d2b48c";
-        msg.innerHTML = "🎉 Yey beneran Ayang! Bentar ya...";
-        setTimeout(startStory, 3000);
+        // 1. Efek Perayaan
+        confetti({
+            particleCount: 150,
+            spread: 70,
+            origin: { y: 0.6 }
+        });
+
+        // 2. Feedback Suara & Visual
+        document.getElementById("v-sukses").play();
+        msg.style.color = "#2ecc71"; // Warna hijau sukses
+        msg.innerHTML = "🎉 Yeay! Kamu emang ayang aku! <br> Bentar ya, aku punya sesuatu...";
+        
+        // 3. Animasi keluar yang smooth
+        gsap.to("#gate-card", { 
+            scale: 0, 
+            opacity: 0, 
+            duration: 1.5, 
+            delay: 1,
+            onComplete: startStory 
+        });
     } else {
         vSalah.play();
         msg.innerText = "Salah... coba ingat lagi ya 😤";
