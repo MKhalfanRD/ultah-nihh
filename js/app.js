@@ -1,15 +1,15 @@
 const FOTO_MAIN = [
-    "assets/img/dulu1.jpeg",
-    "assets/img/dulu2.jpeg",
-    "assets/img/now1.jpeg",
-    "assets/img/now2.jpeg"
+    "assets/img/dulu1.jpeg", "assets/img/dulu2.jpeg", "assets/img/now1.jpeg", "assets/img/now2.jpeg",
+    "assets/img/marugame1.jpeg", "assets/img/marugame2.jpeg", "assets/img/roblox1.jpeg", "assets/img/roblox2.jpeg",
+    "assets/img/roblox3.jpeg", "assets/img/takeichi1.jpeg", "assets/img/takeichi2.jpeg", "assets/img/kado1.jpeg",
+    "assets/img/urbanForest1.jpeg", "assets/img/urbanForest2.jpeg", "assets/img/urbanForest3.jpeg",
+    "assets/img/blokm1.jpeg", "assets/img/natsuka1.jpeg", "assets/img/natsuka2.jpeg", "assets/img/filosofikopi.jpeg",
+    "assets/img/filosofikopi2.jpeg", "assets/img/neduh.jpeg", "assets/img/bakmipiring.jpeg",
 ];
 
 const FOTO_PENUTUP = [
-    "assets/img/cuma bobo.jpg",
-    "assets/img/jan mikir aneh.jpg",
-    "assets/img/love u.jpg",
-    "assets/img/udah punya.jpg"
+    "assets/img/cuma bobo.jpg", "assets/img/jan mikir aneh.jpg",
+    "assets/img/love u.jpg", "assets/img/udah punya.jpg"
 ];
 
 function initiateExperience() {
@@ -24,49 +24,34 @@ function initiateExperience() {
 }
 
 function startGateAnimation() {
-    // 1. Tampilkan section gate
-    const gateSec = document.getElementById("sec-gate");
-    gateSec.style.display = "flex";
-    gateSec.classList.add("active-sec");
-
-    // 2. Pastikan question-box dan semua greet tersembunyi total sebelum animasi mulai
-    document.getElementById("question-box").style.display = "none";
-    document.querySelectorAll(".anim-text").forEach(el => {
-        el.style.display = "none";
-        el.style.opacity = "0";
-    });
+    showSection("sec-gate");
+    
+    const qBox = document.getElementById("question-box");
+    qBox.style.display = "none"; 
 
     const tl = gsap.timeline();
-    const vHalo = document.getElementById("v-halo");
-    const vMemastikan = document.getElementById("v-memastikan");
-    const vPastiTau = document.getElementById("v-pasti-tau");
+    const audios = {
+        h: document.getElementById("v-halo"),
+        m: document.getElementById("v-memastikan"),
+        p: document.getElementById("v-pasti-tau")
+    };
     
-    // 3. Jalankan urutan animasi
-    tl.to("#greet-1", { display: "block", opacity: 1, y: -10, duration: 1, onStart: () => vHalo.play() })
+    tl.to("#greet-1", { display: "block", opacity: 1, y: -10, duration: 1, onStart: () => audios.h.play() })
       .to("#greet-1", { opacity: 0, y: -20, duration: 0.5, delay: 2.5, display: "none" })
-      
-      .to("#greet-2", { display: "block", opacity: 1, y: -10, duration: 1, onStart: () => vMemastikan.play() })
+      .to("#greet-2", { display: "block", opacity: 1, y: -10, duration: 1, onStart: () => audios.m.play() })
       .to("#greet-2", { opacity: 0, y: -20, duration: 0.5, delay: 2.5, display: "none" })
-      
-      .to("#greet-3", { display: "block", opacity: 1, y: -10, duration: 1, onStart: () => vPastiTau.play() })
+      .to("#greet-3", { display: "block", opacity: 1, y: -10, duration: 1, onStart: () => audios.p.play() })
       .to("#greet-3", { opacity: 0, y: -20, duration: 0.5, delay: 1.5, display: "none" })
-      
-      // Munculkan Question Box HANYA setelah greet-3 selesai
       .to("#question-box", { 
-          display: "block", 
-          opacity: 1, 
-          y: 0, 
-          duration: 1,
-          onStart: () => {
-              // Sembunyikan container sapaan agar input bisa di tengah
-              document.getElementById("gate-text-container").style.display = "none";
-          }
+          display: "block", opacity: 1, y: 0, duration: 1,
+          onStart: () => { document.getElementById("gate-text-container").style.display = "none"; }
       });
 }
 
 function checkAnswer() {
     const ans = document.getElementById("answer").value.toLowerCase();
-    if (ans.includes("marugame") || ans.includes("udon") || ans.includes("kokas" || ans.includes("marugame udon"))) {
+    // Perbaikan logika OR (||)
+    if (ans.includes("marugame") || ans.includes("udon") || ans.includes("kokas")) {
         confetti({ particleCount: 150, spread: 70, origin: { y: 0.6 } });
         document.getElementById("v-sukses").play();
         setTimeout(() => {
@@ -102,11 +87,7 @@ function startSinging() {
             img.src = src;
             img.className = "memory-photo";
             container.appendChild(img);
-
-            gsap.fromTo(img, 
-                { opacity: 0, scale: 0.8 }, 
-                { opacity: 1, scale: 1.1, duration: 10, ease: "power1.out" }
-            );
+            gsap.fromTo(img, { opacity: 0, scale: 0.8 }, { opacity: 1, scale: 1.1, duration: 10, ease: "power1.out" });
         }, i * 6000);
     });
 
@@ -124,12 +105,9 @@ function showLetter() {
     const letterBox = document.querySelector(".letter-box");
     const finalText = document.getElementById("final-text");
 
-    let photoContainer = document.getElementById("letter-photos-container");
-    if(!photoContainer) {
-        photoContainer = document.createElement("div");
-        photoContainer.id = "letter-photos-container";
-        letterBox.insertBefore(photoContainer, finalText);
-    }
+    let photoContainer = document.getElementById("letter-photos-container") || document.createElement("div");
+    photoContainer.id = "letter-photos-container";
+    letterBox.insertBefore(photoContainer, finalText);
 
     FOTO_PENUTUP.forEach((src, i) => {
         setTimeout(() => {
@@ -147,20 +125,17 @@ function showLetter() {
     function type() {
         if (j < text.length) {
             finalText.innerHTML += text.charAt(j);
-            j++; 
-            setTimeout(type, 60);
+            j++; setTimeout(type, 60);
         }
     }
     setTimeout(type, 1500);
 }
 
 function showSection(id) {
-    const sections = document.querySelectorAll('section');
-    sections.forEach(sec => {
+    document.querySelectorAll('section').forEach(sec => {
         sec.classList.remove('active-sec');
         sec.style.display = "none";
     });
-
     const target = document.getElementById(id);
     target.style.display = "flex";
     target.classList.add("active-sec");
