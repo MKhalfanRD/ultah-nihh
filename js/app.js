@@ -1,170 +1,169 @@
-// Konfigurasi Link Gambar
-const FOTO_SMP = "assets/img/smp.jpg";
-const FOTO_MARUGAME = "assets/img/marugame.jpg";
-const FOTO_MAIN = ["assets/img/main1.jpg", "assets/img/main2.jpg", "assets/img/main3.jpg"];
+const FOTO_MAIN = [
+    "assets/img/dulu1.jpeg",
+    "assets/img/dulu2.jpeg",
+    "assets/img/now1.jpeg",
+    "assets/img/now2.jpeg"
+];
 
-// 1. Fungsi Membuka Kado (Trigger Utama)
+const FOTO_PENUTUP = [
+    "assets/img/cuma bobo.jpg",
+    "assets/img/jan mikir aneh.jpg",
+    "assets/img/love u.jpg",
+    "assets/img/udah punya.jpg"
+];
+
 function initiateExperience() {
     const overlay = document.getElementById("start-overlay");
     gsap.to(overlay, { opacity: 0, duration: 1, onComplete: () => {
         overlay.style.display = "none";
         startGateAnimation();
     }});
-
-    // Unlock semua audio untuk browser mobile
-    const audios = document.querySelectorAll("audio");
-    audios.forEach(a => {
+    document.querySelectorAll("audio").forEach(a => {
         a.play().then(() => { a.pause(); a.currentTime = 0; }).catch(() => {});
     });
 }
 
-// 2. Gate Animation (Sapaan & Voice)
 function startGateAnimation() {
+    // 1. Tampilkan section gate
+    const gateSec = document.getElementById("sec-gate");
+    gateSec.style.display = "flex";
+    gateSec.classList.add("active-sec");
+
+    // 2. Pastikan question-box dan semua greet tersembunyi total sebelum animasi mulai
+    document.getElementById("question-box").style.display = "none";
+    document.querySelectorAll(".anim-text").forEach(el => {
+        el.style.display = "none";
+        el.style.opacity = "0";
+    });
+
     const tl = gsap.timeline();
     const vHalo = document.getElementById("v-halo");
     const vMemastikan = document.getElementById("v-memastikan");
     const vPastiTau = document.getElementById("v-pasti-tau");
-    const sfxCeria = document.getElementById("sfx-ceria");
-    const sfxDegdegan = document.getElementById("sfx-heartbeat");
-
-    document.getElementById("sec-gate").classList.add("active-sec");
-
-    tl.to("#greet-1", { 
-        display: "block", opacity: 1, y: -10, duration: 1, 
-        onStart: () => { sfxCeria.play(); vHalo.play(); } 
-    })
-    .to("#greet-1", { opacity: 0, y: -20, duration: 0.5, delay: 2.5, display: "none" })
-    .to("#greet-2", { 
-        display: "block", opacity: 1, y: -10, duration: 1, 
-        onStart: () => vMemastikan.play() 
-    })
-    .to("#greet-2", { opacity: 0, y: -20, duration: 0.5, delay: 2.5, display: "none" })
-    .to("#greet-3", { 
-        display: "block", opacity: 1, y: -10, duration: 1, 
-        onStart: () => vPastiTau.play() 
-    })
-    .to("#greet-3", { opacity: 0, y: -20, duration: 0.5, delay: 1.5, display: "none" })
-    .to("#question-box", { 
-        display: "block", opacity: 1, y: 0, duration: 1, 
-        onStart: () => { sfxDegdegan.volume = 0.3; sfxDegdegan.play(); } 
-    });
+    
+    // 3. Jalankan urutan animasi
+    tl.to("#greet-1", { display: "block", opacity: 1, y: -10, duration: 1, onStart: () => vHalo.play() })
+      .to("#greet-1", { opacity: 0, y: -20, duration: 0.5, delay: 2.5, display: "none" })
+      
+      .to("#greet-2", { display: "block", opacity: 1, y: -10, duration: 1, onStart: () => vMemastikan.play() })
+      .to("#greet-2", { opacity: 0, y: -20, duration: 0.5, delay: 2.5, display: "none" })
+      
+      .to("#greet-3", { display: "block", opacity: 1, y: -10, duration: 1, onStart: () => vPastiTau.play() })
+      .to("#greet-3", { opacity: 0, y: -20, duration: 0.5, delay: 1.5, display: "none" })
+      
+      // Munculkan Question Box HANYA setelah greet-3 selesai
+      .to("#question-box", { 
+          display: "block", 
+          opacity: 1, 
+          y: 0, 
+          duration: 1,
+          onStart: () => {
+              // Sembunyikan container sapaan agar input bisa di tengah
+              document.getElementById("gate-text-container").style.display = "none";
+          }
+      });
 }
 
-// 3. Verifikasi Jawaban
 function checkAnswer() {
     const ans = document.getElementById("answer").value.toLowerCase();
-    const sfxDegdegan = document.getElementById("sfx-heartbeat");
-    const vSukses = document.getElementById("v-sukses");
-    const vSalah = document.getElementById("v-salah");
-    const msg = document.getElementById("gateMsg");
-
-    if (ans.includes("marugame") || ans.includes("udon")) {
-        // 1. Efek Perayaan
-        confetti({
-            particleCount: 150,
-            spread: 70,
-            origin: { y: 0.6 }
-        });
-
-        // 2. Feedback Suara & Visual
+    if (ans.includes("marugame") || ans.includes("udon") || ans.includes("kokas" || ans.includes("marugame udon"))) {
+        confetti({ particleCount: 150, spread: 70, origin: { y: 0.6 } });
         document.getElementById("v-sukses").play();
-        msg.style.color = "#2ecc71"; // Warna hijau sukses
-        msg.innerHTML = "🎉 Yeay! Kamu emang ayang aku! <br> Bentar ya, aku punya sesuatu...";
-        
-        // 3. Animasi keluar yang smooth
-        gsap.to("#gate-card", { 
-            scale: 0, 
-            opacity: 0, 
-            duration: 1.5, 
-            delay: 1,
-            onComplete: startStory 
-        });
+        setTimeout(() => {
+            showSection("sec-birthday");
+            setTimeout(startSinging, 1200);
+        }, 2000);
     } else {
-        vSalah.play();
-        msg.innerText = "Salah... coba ingat lagi ya 😤";
+        document.getElementById("v-salah").play();
         gsap.fromTo("#gate-card", { x: -10 }, { x: 10, duration: 0.1, repeat: 5, yoyo: true });
     }
 }
 
-// 4. Phase: Story
-function startStory() {
-    showSection("sec-story");
-    const audio = document.getElementById("audio-story");
-    const img = document.getElementById("story-img");
-    const cap = document.getElementById("story-caption");
-    const prog = document.querySelector(".progress");
-
-    audio.play();
-    img.src = FOTO_SMP;
-    cap.innerText = "Dulu kita cuma sebatas tahu nama di SMP...";
-
-    audio.ontimeupdate = () => {
-        prog.style.width = (audio.currentTime / audio.duration) * 100 + "%";
-        // Ganti foto di detik ke-10 (sesuaikan durasi)
-        if (Math.floor(audio.currentTime) === 10) {
-            img.src = FOTO_MARUGAME;
-            cap.innerText = "9 tahun kemudian, kita ketemu lagi di Marugame Udon.";
-        }
-    };
-
-    audio.onended = () => setTimeout(() => showSection("sec-birthday"), 1000);
-}
-
-// 5. Phase: Birthday Singing
 function startSinging() {
     const sing = document.getElementById("audio-sing");
+    const story = document.getElementById("audio-story");
+    const container = document.getElementById("playing-photos");
+    
     document.getElementById("btn-sing").style.display = "none";
     sing.play();
+
+    let storyStarted = false;
+    sing.ontimeupdate = () => {
+        if (sing.currentTime >= 24 && !storyStarted) {
+            storyStarted = true;
+            gsap.to(sing, { volume: 0.05, duration: 2 });
+            story.play();
+        }
+    };
 
     FOTO_MAIN.forEach((src, i) => {
         setTimeout(() => {
             const img = document.createElement("img");
             img.src = src;
-            img.style.width = "100px";
-            img.style.borderRadius = "10px";
-            img.style.boxShadow = "0 5px 15px rgba(0,0,0,0.1)";
-            document.getElementById("playing-photos").appendChild(img);
-            gsap.from(img, { scale: 0, opacity: 0, duration: 0.5 });
-        }, i * 3000);
+            img.className = "memory-photo";
+            container.appendChild(img);
+
+            gsap.fromTo(img, 
+                { opacity: 0, scale: 0.8 }, 
+                { opacity: 1, scale: 1.1, duration: 10, ease: "power1.out" }
+            );
+        }, i * 6000);
     });
 
-    sing.onended = () => {
+    story.onended = () => {
         const btn = document.createElement("button");
-        btn.innerText = "Buka Surat 💌";
-        btn.style.marginTop = "20px";
+        btn.innerHTML = "Buka Surat Terakhir 💌";
+        btn.style.marginTop = "30px";
         btn.onclick = showLetter;
         document.getElementById("sec-birthday").appendChild(btn);
     };
 }
 
-// 6. Phase: Final Letter
 function showLetter() {
     showSection("sec-letter");
+    const letterBox = document.querySelector(".letter-box");
+    const finalText = document.getElementById("final-text");
+
+    let photoContainer = document.getElementById("letter-photos-container");
+    if(!photoContainer) {
+        photoContainer = document.createElement("div");
+        photoContainer.id = "letter-photos-container";
+        letterBox.insertBefore(photoContainer, finalText);
+    }
+
+    FOTO_PENUTUP.forEach((src, i) => {
+        setTimeout(() => {
+            const img = document.createElement("img");
+            img.src = src;
+            img.className = "mini-photo";
+            photoContainer.appendChild(img);
+            gsap.to(img, { opacity: 1, duration: 2, y: -5 });
+        }, i * 2000);
+    });
+
     const text = "Ternyata semesta punya caranya sendiri ya... Terima kasih sudah hadir kembali di hidupku setelah 9 tahun ini. Selamat ulang tahun, semoga kita terus satu orbit. 🤍";
-    const el = document.getElementById("final-text");
-    let i = 0;
+    finalText.innerHTML = "";
+    let j = 0;
     function type() {
-        if (i < text.length) {
-            el.innerHTML += text.charAt(i);
-            i++; setTimeout(type, 50);
+        if (j < text.length) {
+            finalText.innerHTML += text.charAt(j);
+            j++; 
+            setTimeout(type, 60);
         }
     }
-    setTimeout(type, 1000);
+    setTimeout(type, 1500);
 }
 
-// Helper: Navigasi Antar Section
 function showSection(id) {
-    const current = document.querySelector(".active-sec");
-    if(current) {
-        gsap.to(current, { opacity: 0, duration: 0.8, onComplete: () => {
-            current.classList.remove("active-sec");
-            current.style.visibility = "hidden";
-        }});
-    }
-    
-    setTimeout(() => {
-        const next = document.getElementById(id);
-        next.classList.add("active-sec");
-        gsap.fromTo(next, { opacity: 0 }, { opacity: 1, duration: 1, visibility: "visible" });
-    }, 850);
+    const sections = document.querySelectorAll('section');
+    sections.forEach(sec => {
+        sec.classList.remove('active-sec');
+        sec.style.display = "none";
+    });
+
+    const target = document.getElementById(id);
+    target.style.display = "flex";
+    target.classList.add("active-sec");
+    gsap.fromTo(target, { opacity: 0 }, { opacity: 1, duration: 1 });
+    window.scrollTo(0, 0);
 }
