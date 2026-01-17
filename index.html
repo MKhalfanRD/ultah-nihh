@@ -39,8 +39,15 @@
     <section id="sec-birthday">
       <h1 class="title-font big">Happy Birthday! 🎂</h1>
       <div id="playing-photos" class="photo-grid"></div>
-      <button id="btn-sing" onclick="startSinging()">🎵 Dengar Nyanyianku</button>
     </section>
+
+    <div id="modal-penutupan" class="modal-overlay hidden">
+      <div class="modal-content">
+        <h2 class="title-font">Pesan penting... 💌</h2>
+        <p style="margin-bottom: 20px; color: #3d2b1f;">Terima kasih sudah bertahan sejauh ini.</p>
+        <button onclick="closeModalAndShowLetter()">Buka Pesan</button>
+      </div>
+    </div>
 
     <section id="sec-letter">
       <div class="letter-box">
